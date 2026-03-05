@@ -1,0 +1,173 @@
+---
+title: 快速开始
+titleEn: Quick Start
+summary: 下载、安装、运行你的第一个任务
+slug: quick-start
+category: 入门
+order: 2
+updatedAt: 2026-03-05
+---
+
+选择适合你的安装方式：
+
+## 方式一：桌面应用（推荐）
+
+下载最新的桌面应用，开箱即用。
+
+### Windows
+
+1. 从 [GitHub Releases](https://github.com/jaguarliuu/jaguarclaw/releases) 下载 `.exe` 安装包
+2. 双击安装
+3. 启动应用，在设置中配置你的 LLM API Key
+4. 开始聊天
+
+### macOS
+
+1. 从 [GitHub Releases](https://github.com/jaguarliuu/jaguarclaw/releases) 下载 `.dmg` 文件
+2. 拖拽到 Applications 文件夹
+3. 启动应用，配置 LLM
+4. 开始使用
+
+> 💡 **提示**：桌面应用内置 JRE，无需单独安装 Java。
+
+---
+
+## 方式二：Docker Compose
+
+适合服务器部署或团队使用。
+
+```bash
+# 克隆仓库
+git clone https://github.com/jaguarliuu/jaguarclaw.git
+cd jaguarclaw
+
+# 配置环境变量
+cp .env.example .env
+```
+
+编辑 `.env` 文件，设置你的 LLM 配置：
+
+```bash title=".env"
+LLM_ENDPOINT=https://api.deepseek.com
+LLM_API_KEY=your-api-key-here
+LLM_MODEL=deepseek-chat
+```
+
+启动服务：
+
+```bash
+docker-compose up -d
+```
+
+打开 http://localhost 访问 Web UI。
+
+---
+
+## 方式三：从源码构建
+
+适合开发者调试和贡献代码。
+
+### 前置要求
+
+- Java 24+
+- Node.js 20+
+- Maven 3.9+
+
+### 步骤
+
+```bash
+# 克隆仓库
+git clone https://github.com/jaguarliuu/jaguarclaw.git
+cd jaguarclaw
+
+# 创建本地配置
+cat > src/main/resources/application-local.yml << 'EOF'
+llm:
+  endpoint: https://api.deepseek.com
+  api-key: your-api-key-here
+  model: deepseek-chat
+EOF
+
+# 构建后端
+mvn clean package -DskipTests
+
+# 启动后端（使用 SQLite）
+java -jar target/jaguarclaw-*.jar --spring.profiles.active=local
+```
+
+在另一个终端启动前端：
+
+```bash
+cd jaguarclaw-ui
+npm install
+npm run dev
+```
+
+打开 http://localhost:5173 开始使用。
+
+---
+
+## 配置 LLM
+
+JaguarClaw 支持任何 OpenAI 兼容的 API。
+
+### DeepSeek（推荐）
+
+```yaml
+llm:
+  endpoint: https://api.deepseek.com
+  api-key: sk-xxxxx
+  model: deepseek-chat
+```
+
+### Qwen（通义千问）
+
+```yaml
+llm:
+  endpoint: https://dashscope.aliyuncs.com/compatible-mode/v1
+  api-key: sk-xxxxx
+  model: qwen-plus
+```
+
+### OpenAI
+
+```yaml
+llm:
+  endpoint: https://api.openai.com
+  api-key: sk-xxxxx
+  model: gpt-4o
+```
+
+### Ollama（本地）
+
+```yaml
+llm:
+  endpoint: http://localhost:11434
+  api-key: ""  # Ollama 不需要
+  model: llama3
+```
+
+---
+
+## 运行第一个任务
+
+启动后，尝试给 JaguarClaw 一个任务：
+
+```
+读取当前目录下的 README.md 文件，总结它的主要内容
+```
+
+你会看到它：
+
+1. 思考需要做什么
+2. 调用 `read_file` 工具
+3. 读取文件内容
+4. 生成总结
+
+---
+
+## 下一步
+
+- [介绍](/docs/introduction) — 了解 JaguarClaw 的核心概念
+- [工具列表](/docs/tools) — 查看所有内置工具
+- [技能系统](/docs/skills) — 学习如何使用和创建技能
