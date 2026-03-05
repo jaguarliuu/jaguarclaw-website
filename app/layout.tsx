@@ -29,7 +29,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="zh-CN">
       <body>
-        <div className="site-bg" aria-hidden="true" />
+        <div className="site-bg" aria-hidden="true">
+          <div className="light-arc" />
+          <div className="glow-orb orb-1" />
+          <div className="glow-orb orb-2" />
+        </div>
         <SiteHeader />
         <main className="container main-content">{children}</main>
         <SiteFooter />
