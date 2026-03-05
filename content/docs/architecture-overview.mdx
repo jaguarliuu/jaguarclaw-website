@@ -1,0 +1,27 @@
+---
+title: Architecture Overview
+summary: Understand the runtime loop, tool boundaries, and event flow.
+slug: architecture-overview
+category: Core
+order: 1
+updatedAt: 2026-03-05
+---
+
+JaguarClaw is organized around a deterministic runtime loop:
+
+- context preparation
+- model invocation
+- tool execution
+- event emission
+- completion/continuation decision
+
+This model enables auditability and consistent behavior under operational constraints.
+
+```ts title="runtime-loop.ts"
+type LoopState = 'continue' | 'stop'
+
+export function runStep(step: number, maxSteps: number): LoopState {
+  if (step >= maxSteps) return 'stop'
+  return 'continue'
+}
+```
