@@ -1,26 +1,30 @@
 import Link from 'next/link'
 
 const navItems = [
-  { label: 'Product', href: '/' },
-  { label: 'Docs', href: '/docs' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Feedback', href: '/feedback' }
+  { label: '首页', href: '/' },
+  { label: '文档', href: '/docs' },
+  { label: '博客', href: '/blog' },
+  { label: '反馈', href: '/feedback' }
 ]
 
 export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="container nav-shell">
-        <Link href="/" className="brand" aria-label="JaguarClaw Home">
+        <Link href="/" className="brand">
           JaguarClaw
         </Link>
-        <nav className="nav-links" aria-label="Main Navigation">
+        <nav className="nav-links">
           {navItems.map((item) => (
-            <Link key={item.href} href={item.href as never}>
+            <Link key={item.href} href={item.href}>
               {item.label}
             </Link>
           ))}
-          <a href="https://github.com" target="_blank" rel="noreferrer">
+          <a 
+            href="https://github.com/jaguarliuu/jaguarclaw" 
+            target="_blank" 
+            rel="noreferrer"
+          >
             GitHub
           </a>
         </nav>
